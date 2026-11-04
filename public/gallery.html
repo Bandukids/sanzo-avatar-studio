@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#dce9f6">
+  <title>人物大厅 · SANZO 数字人工作室</title>
+  <link rel="icon" href="/assets/mark.svg">
+  <script>try { if (localStorage.getItem('avatar-theme') === 'night') document.documentElement.dataset.theme = 'night'; } catch {}</script>
+  <link rel="stylesheet" href="/live.css">
+  <link rel="stylesheet" href="/gallery.css">
+  <script type="module" src="/gallery.js"></script>
+</head>
+<body class="gallery-page">
+  <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 14a9 9 0 0 1-11-11A9 9 0 1 0 21 14Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 19 19 5M8 5h11v11"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16m-6-6 6 6 6-6"/></symbol>
+  </svg>
+  <div class="workspace">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Sanzo 数字人工作室首页">
+        <span class="brand-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <span>SANZO <small>AVATAR STUDIO</small></span>
+      </a>
+      <button class="glass-button" id="theme-switch" type="button" aria-label="切换到夜晚主题">
+        <svg><use href="#i-moon"/></svg><span>夜晚</span>
+      </button>
+    </header>
+    <main class="gallery">
+      <section class="gallery-intro" aria-labelledby="gallery-title">
+        <div class="intro-copy">
+          <div class="intro-label"><i></i> 人物大厅 <span>CAST COLLECTION</span></div>
+          <h1 id="gallery-title">在不同世界，<br>见一面<span>。</span></h1>
+          <p>和阿勒聊艾泽拉斯的旧事，<br class="intro-break">也和游戏 Coser 聊聊角色与漫展。</p>
+          <div class="intro-actions">
+            <a class="intro-primary" href="#cast">探索角色 <svg aria-hidden="true"><use href="#i-down"/></svg></a>
+            <a class="intro-secondary" href="/avatar/ache">和阿勒开聊 <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+        <div class="intro-art" aria-hidden="true">
+          <svg class="gallery-orbit" viewBox="0 0 600 330">
+            <ellipse cx="304" cy="165" rx="264" ry="103" transform="rotate(-16 304 165)"/>
+            <ellipse cx="304" cy="165" rx="257" ry="100" transform="rotate(12 304 165)"/>
+            <ellipse cx="304" cy="165" rx="270" ry="62" transform="rotate(-9 304 165)"/>
+            <path d="M98 117h22m-11-11v22m391 100h18m-9-9v18"/>
+            <circle cx="528" cy="86" r="5"/><circle cx="67" cy="226" r="3"/>
+          </svg>
+          <div class="intro-portrait intro-portrait-left"><img data-featured-avatar="changli" alt=""></div>
+          <div class="intro-portrait intro-portrait-right"><img data-featured-avatar="march" alt=""></div>
+          <div class="intro-portrait intro-portrait-center"><img data-featured-avatar="ache" alt=""></div>
+          <span class="intro-art-label"><i></i> 实时视频对话</span>
+        </div>
+      </section>
+      <section class="gallery-list" id="cast" aria-labelledby="gallery-list-title">
+        <div class="gallery-list-heading">
+          <div>
+            <div class="eyebrow"><i></i> THE CAST</div>
+            <h2 id="gallery-list-title">探索角色</h2>
+          </div>
+          <span id="cast-count"></span>
+        </div>
+        <div class="card-grid" id="characters"></div>
+      </section>
+    </main>
+  </div>
+  <template id="character-card">
+    <a class="character-card">
+      <img alt="">
+      <span class="card-index"></span>
+      <div class="card-copy">
+        <span class="card-role"></span>
+        <strong class="card-name"></strong>
+        <p class="card-description"></p>
+      </div>
+      <span class="card-enter" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+    </a>
+  </template>
+</body>
+</html>

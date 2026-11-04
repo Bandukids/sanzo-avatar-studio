@@ -1,0 +1,14 @@
+{
+  "name": "avatar-studio-prototype",
+  "version": "0.9.0",
+  "private": true,
+  "type": "module",
+  "description": "Sanzo Avatar Studio with two Vidu video conversation modes",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env.local server.mjs",
+    "check": "node --check server.mjs && node --check lib/video-session.mjs && node --check lib/qwen-session.mjs && node --check lib/secrets.mjs && node --check public/service-config.js && node --check public/gallery.js && node --check public/theme.js && node --check public/live.js && node --check public/rtc.js && node --check public/audio-worklet.js",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": { "ws": "^8.18.3" }
+}

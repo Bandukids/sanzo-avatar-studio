@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#dce9f6">
+  <title>SANZO · 数字人工作室</title>
+  <link rel="icon" href="/assets/mark.svg">
+  <script>try { if (localStorage.getItem('avatar-theme') === 'night') document.documentElement.dataset.theme = 'night'; } catch {}</script>
+  <link rel="stylesheet" href="/live.css">
+  <script type="module" src="/live.js"></script>
+</head>
+<body>
+  <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4Z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 14a9 9 0 0 1-11-11A9 9 0 1 0 21 14Z"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2m-7 9v3m-4 0h8"/></symbol>
+    <symbol id="i-mic-off" viewBox="0 0 24 24"><path d="m3 3 18 18M9 9v3a3 3 0 0 0 5 2M9 5a3 3 0 0 1 6 0v5M5 10v2a7 7 0 0 0 12 5m2-7v2m-7 9v3m-4 0h8"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="m4 3 4 0 2 5-3 2a16 16 0 0 0 7 7l2-3 5 2v4c-1 4-9 0-13-4S0 4 4 3Z"/></symbol>
+    <symbol id="i-phone-off" viewBox="0 0 24 24"><path d="M3 12c6-5 12-5 18 0v5h-5l-1-4c-2-1-4-1-6 0l-1 4H3Z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 1-8 8H4l-2 2V11a8 8 0 0 1 8-8h10Z"/><path d="M7 8h8M7 12h5"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16M8 4v6M16 14v6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-captions" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 10H7v4h3m7-4h-3v4h3"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M12 19V5m-5 5 5-5 5 5"/></symbol>
+  </svg>
+  <div class="workspace">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Sanzo 数字人工作室首页">
+        <span class="brand-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <span>SANZO <small>AVATAR STUDIO</small></span>
+      </a>
+      <div class="header-actions">
+        <button class="glass-button" id="theme-switch" type="button" aria-label="切换到夜晚主题">
+          <svg><use href="#i-moon"/></svg><span>夜晚</span>
+        </button>
+        <button class="glass-button" data-open="settings" type="button">
+          <svg><use href="#i-settings"/></svg>角色设置
+        </button>
+      </div>
+    </header>
+    <main class="call-layout">
+      <div class="call-info">
+        <a class="back-link" href="/"><span aria-hidden="true">←</span> 返回人物大厅</a>
+        <div class="eyebrow"><i></i> REALTIME PORTRAIT</div>
+        <h1 id="display-name">阿勒</h1>
+        <p id="character-summary"></p>
+        <button class="glass-button role-chip" data-open="settings" type="button"><svg><use href="#i-spark"/></svg><span id="role-title">魔兽世界老玩家</span></button>
+        <fieldset class="mode-selector" aria-label="视频链路">
+          <legend class="sr-only">视频链路</legend>
+          <label><input type="radio" name="mode" value="component" checked><span>千问 + Vidu 组件版</span></label>
+          <label><input type="radio" name="mode" value="realtime"><span>Vidu 完整实时版</span></label>
+        </fieldset>
+      </div>
+      <div class="portrait-column">
+      <section class="hero" id="hero" aria-label="实时数字人视频">
+        <div class="stage-media">
+          <img id="portrait" alt="人物预览">
+          <video id="remote-video" playsinline autoplay aria-label="数字人实时画面" hidden></video>
+        </div>
+        <div class="stage-top">
+          <div class="stage-pill" id="presence"><i></i><span id="presence-text">人物预览</span></div>
+          <div class="stage-pill"><span>Vidu 托管 RTC</span><time id="duration">00:00</time></div>
+        </div>
+        <div class="captions" id="captions" aria-live="polite" hidden></div>
+        <button class="play-rtc" id="play-rtc" type="button" hidden>点击播放视频</button>
+      </section>
+      <section class="call-console" aria-label="通话控制">
+        <div class="call-status" role="status">
+          <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <div><strong id="call-status">准备好，见一面。</strong><small id="call-hint">选择一条链路，开始视频通话</small></div>
+        </div>
+        <div class="dock">
+          <button class="control" id="mute" title="麦克风静音" aria-label="麦克风静音" aria-pressed="false" disabled><svg><use href="#i-mic"/></svg></button>
+          <button class="control" id="interrupt" title="停止当前回答" aria-label="停止当前回答" disabled><svg><use href="#i-stop"/></svg></button>
+          <button class="call-button" id="call"><svg><use href="#i-phone"/></svg><span>开始视频通话</span></button>
+          <button class="control" id="toggle-captions" title="显示字幕" aria-label="显示字幕" aria-pressed="false"><svg><use href="#i-captions"/></svg></button>
+          <button class="control" data-open="transcript" title="查看对话记录" aria-label="查看对话记录" aria-pressed="false"><svg><use href="#i-chat"/></svg></button>
+        </div>
+      </section>
+      </div>
+    </main>
+  </div>
+  <button class="backdrop" id="backdrop" aria-label="关闭侧边面板" hidden></button>
+  <section class="drawer" id="settings" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+    <div class="drawer-header"><div><div class="eyebrow"><i></i> THE CHARACTER</div><h2 id="settings-title">给角色一点个性</h2></div><button class="control" data-close aria-label="关闭角色设置"><svg><use href="#i-close"/></svg></button></div>
+    <div class="drawer-body">
+      <label class="field">角色模板<select id="role-preset"><option value="character">角色原设</option><option value="companion">温暖搭子</option><option value="fantasy">奇幻旅伴</option><option value="guide">虚拟讲解员</option><option value="clockmaker">旧钟铺岑叔</option><option value="station">空间站机器人</option><option value="custom">自定义人设</option></select></label>
+      <label class="field">角色名字<input id="character-name" value="阿勒" maxlength="20" autocomplete="off"></label>
+      <label class="field">角色人设<textarea id="persona" maxlength="1000" rows="5"></textarea></label>
+      <div id="qwen-settings">
+        <label class="field">千问音色<select id="voice"></select></label>
+        <label class="field">对话节奏<select id="turn-detection"></select><small id="turn-help"></small></label>
+      </div>
+      <p class="help" id="vidu-settings" hidden>完整实时版使用 Vidu 的默认音色和对话节奏。</p>
+      <div class="connection" id="connection">正在检查连接…</div>
+      <p class="help">人设在下次通话时生效。开始通话时会把当前人物照片发送给 Vidu。</p>
+    </div>
+    <div class="drawer-footer"><button class="call-button save" id="save-settings">保存，回到舞台</button></div>
+  </section>
+  <section class="drawer" id="transcript" role="dialog" aria-modal="true" aria-labelledby="transcript-title" hidden>
+    <div class="drawer-header"><div><div class="eyebrow"><i></i> CONVERSATION</div><h2 id="transcript-title">这次聊了些什么</h2></div><button class="control" data-close aria-label="关闭对话记录"><svg><use href="#i-close"/></svg></button></div>
+    <div class="log" id="messages" role="log" aria-live="polite"><div class="transcript-empty">开始通话后，文字记录会出现在这里。</div></div>
+    <div class="composer">
+      <form id="text-form"><label class="sr-only" for="text-input">补充一条文字</label><input id="text-input" maxlength="1000" placeholder="也可以补充一句文字…" disabled><button type="submit" class="control" id="send-text" aria-label="发送文字" disabled><svg><use href="#i-arrow"/></svg></button></form>
+      <small>通话过程中可补充文字 · 记录仅保留在当前会话</small>
+    </div>
+  </section>
+  <div class="toast-region" id="toasts" role="status" aria-live="polite"></div>
+</body>
+</html>
